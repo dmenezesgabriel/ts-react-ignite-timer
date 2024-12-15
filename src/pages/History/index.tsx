@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import { HistoryContainer, HistoryList, Status } from "./styles";
+import { CyclesContext } from "../../contexts/CyclesContext";
 
 export function History() {
+  const { cycles } = useContext(CyclesContext);
+
   return (
     <HistoryContainer>
       <h1>Meu histórico</h1>
@@ -16,11 +20,11 @@ export function History() {
             </tr>
           </thead>
           <tbody>
-            {Array.from({ length: 5 }).map(() => (
+            {cycles.map((cycle) => (
               <tr>
-                <td>Tarefa</td>
-                <td>20 Minutos</td>
-                <td>Ha 2 meses</td>
+                <td>{cycle.task}</td>
+                <td>{cycle.minutesAmount}</td>
+                <td>{cycle.startDate.toISOString()}</td>
                 <td>
                   <Status statusColor="green">Concluído</Status>
                 </td>
